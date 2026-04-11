@@ -29,7 +29,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-[1240px] flex-col items-center justify-between gap-2 px-5 py-5 sm:flex-row">
-          <p className="font-body text-xs text-muted-2">© 2026 Smashlab.nl — Alle rechten voorbehouden</p>
+          <p className="font-body text-xs text-muted-2">© 2026 Smashlab.nl · Alle rechten voorbehouden</p>
           <a href="#" className="font-body text-xs text-muted-2 transition-colors hover:text-muted">Affiliate disclaimer</a>
         </div>
       </div>

@@ -1,7 +1,7 @@
 const blogs = [
   {
     cat: 'Rackets',
-    title: 'Beste padelracket voor beginners in 2026 — onze eerlijke top 5',
+    title: 'Beste padelracket voor beginners in 2026: onze eerlijke top 5',
     desc: 'Net begonnen met padel en overweldigd door het aanbod? Wij testten 18 rackets en kozen de 5 beste voor startende spelers.',
     time: '8 min',
     featured: true,
@@ -13,7 +13,7 @@ const blogs = [
   },
   {
     cat: 'Schoenen',
-    title: 'Binnenbaan vs. buitenbaan schoenen — wat is het verschil?',
+    title: 'Binnenbaan vs. buitenbaan schoenen: wat is het verschil?',
     time: '4 min',
   },
 ];

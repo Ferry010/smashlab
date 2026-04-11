@@ -33,7 +33,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p className="stagger-fade mt-6 max-w-[480px] font-body text-[17px] leading-relaxed text-muted" style={{ animationDelay: '200ms' }}>
-            Jouw alles-in-één platform voor padel in Nederland — van vrije banen en gear reviews tot trainingstips die je spel écht naar een hoger niveau tillen.
+            Jouw alles-in-één platform voor padel in Nederland. Van vrije banen en gear reviews tot trainingstips die je spel écht naar een hoger niveau tillen.
           </p>
 
           {/* CTAs */}

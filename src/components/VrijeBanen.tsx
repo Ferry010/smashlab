@@ -42,7 +42,7 @@ export default function VrijeBanen() {
                   Zoek banen
                 </button>
               </div>
-              <p className="mt-3 font-body text-xs text-muted-2">⚙ Tool in ontwikkeling — meld je aan voor vroege toegang</p>
+              <p className="mt-3 font-body text-xs text-muted-2">⚙ Tool in ontwikkeling. Meld je aan voor vroege toegang</p>
             </div>
 
             {/* Right */}
