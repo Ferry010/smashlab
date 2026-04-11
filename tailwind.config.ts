@@ -13,12 +13,29 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['"Bebas Neue"', 'cursive'],
+        body: ['"DM Sans"', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
+        "border-2": "hsl(var(--border-2))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        "bg-2": "hsl(var(--bg-2))",
+        "bg-3": "hsl(var(--bg-3))",
+        "bg-4": "hsl(var(--bg-4))",
         foreground: "hsl(var(--foreground))",
+        lime: {
+          DEFAULT: "hsl(var(--lime))",
+          dim: "hsl(var(--lime-dim))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+          "2": "hsl(var(--muted-2))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -30,10 +47,6 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -65,20 +78,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
