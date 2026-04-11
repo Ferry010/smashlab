@@ -27,13 +27,13 @@ export default function Hero() {
 
           {/* H1 */}
           <h1 className="stagger-fade font-display leading-[0.92]" style={{ animationDelay: '100ms', fontSize: 'clamp(72px, 11vw, 120px)' }}>
-            <span className="block text-foreground">DOMEER</span>
-            <span className="block text-lime">DE BAAN.</span>
+            <span className="block text-foreground">OWN</span>
+            <span className="block text-lime">THE COURT.</span>
           </h1>
 
           {/* Subtitle */}
           <p className="stagger-fade mt-6 max-w-[480px] font-body text-[17px] leading-relaxed text-muted" style={{ animationDelay: '200ms' }}>
-            Vind vrije banen bij jou in de buurt, lees de beste gear reviews, ontdek techniek en trainingstips — voor elk niveau.
+            Jouw alles-in-één platform voor padel in Nederland — van vrije banen en gear reviews tot trainingstips die je spel écht naar een hoger niveau tillen.
           </p>
 
           {/* CTAs */}
