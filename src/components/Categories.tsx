@@ -1,7 +1,7 @@
 const cards = [
   { emoji: '🎾', title: 'RACKETS & GEAR', desc: 'Onafhankelijke reviews, vergelijkingen en koopgidsen. Van beginner tot gevorderd.', soon: 'reviews, vergelijkingen, affiliate deals', featured: true },
-  { emoji: '👟', title: 'SCHOENEN', desc: 'Binnenbaan, buitenbaan of all-court — de juiste schoen maakt het verschil.', soon: 'koopgidsen, top 10 lijsten' },
-  { emoji: '🧠', title: 'TECHNIEK', desc: 'Smash, lob, bandeja, vibora — leer elke slag met stap-voor-stap uitleg.', soon: 'video tutorials, slag-analyse' },
+  { emoji: '👟', title: 'SCHOENEN', desc: 'Binnenbaan, buitenbaan of all-court. De juiste schoen maakt het verschil.', soon: 'koopgidsen, top 10 lijsten' },
+  { emoji: '🧠', title: 'TECHNIEK', desc: 'Smash, lob, bandeja, vibora. Leer elke slag met stap-voor-stap uitleg.', soon: 'video tutorials, slag-analyse' },
   { emoji: '🏋️', title: 'TRAINING', desc: 'Drills, fitnessprogramma\'s en coaching voor spelers die willen groeien.', soon: 'trainingsschema\'s, coaching tips' },
   { emoji: '👕', title: 'KLEDING', desc: 'Sportieve padel outfits van de beste merken. Head, Babolat, NOX, Adidas.', soon: 'stijlgidsen, seizoensoverzicht' },
   { emoji: '📍', title: 'BANEN GIDS', desc: 'De beste padelbanen van Nederland, gereviewed door echte spelers.', soon: 'club reviews, kaartweergave' },
