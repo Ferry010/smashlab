@@ -1,20 +1,60 @@
 export default function Hero() {
   return (
     <section className="grain-overlay relative flex min-h-screen items-center overflow-hidden bg-background">
-      {/* Radial lime glow */}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2" style={{ background: 'radial-gradient(ellipse at 80% 40%, rgba(200,255,0,0.07) 0%, transparent 70%)' }} />
+      {/* Radial blue glow */}
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2" style={{ background: 'radial-gradient(ellipse at 80% 40%, rgba(59,130,246,0.08) 0%, transparent 70%)' }} />
 
-      {/* Decorative court lines */}
-      <div className="pointer-events-none absolute right-[5%] top-1/2 hidden -translate-y-1/2 lg:block" style={{ width: 340, height: 460 }}>
-        {/* Outer rectangle */}
-        <div className="absolute inset-0 rounded border border-lime/[0.06]" />
-        {/* Center horizontal */}
-        <div className="absolute left-0 right-0 top-1/2 h-px bg-lime/[0.06]" />
-        {/* Center vertical */}
-        <div className="absolute bottom-0 left-1/2 top-0 w-px bg-lime/[0.06]" />
-        {/* Diagonal shapes */}
-        <div className="absolute right-[10%] top-[15%] h-40 w-28 rotate-12 rounded border border-lime/[0.08]" />
-        <div className="absolute bottom-[15%] left-[10%] h-36 w-24 -rotate-6 rounded border border-lime/[0.04]" />
+      {/* Padel court line art */}
+      <div className="pointer-events-none absolute right-[3%] top-1/2 hidden -translate-y-1/2 lg:block" style={{ width: 380, height: 520 }}>
+        <svg viewBox="0 0 380 520" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+          {/* Outer court walls (glass) */}
+          <rect x="20" y="20" width="340" height="480" rx="4" stroke="hsl(217 91% 60% / 0.08)" strokeWidth="1.5" />
+          
+          {/* Inner court playing area */}
+          <rect x="50" y="60" width="280" height="400" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="1" />
+          
+          {/* Center net line */}
+          <line x1="50" y1="260" x2="330" y2="260" stroke="hsl(217 91% 60% / 0.15)" strokeWidth="1.5" strokeDasharray="8 4" />
+          
+          {/* Service lines */}
+          <line x1="50" y1="160" x2="330" y2="160" stroke="hsl(217 91% 60% / 0.07)" strokeWidth="1" />
+          <line x1="50" y1="360" x2="330" y2="360" stroke="hsl(217 91% 60% / 0.07)" strokeWidth="1" />
+          
+          {/* Center service line (vertical) */}
+          <line x1="190" y1="60" x2="190" y2="160" stroke="hsl(217 91% 60% / 0.07)" strokeWidth="1" />
+          <line x1="190" y1="360" x2="190" y2="460" stroke="hsl(217 91% 60% / 0.07)" strokeWidth="1" />
+
+          {/* Glass wall raster pattern - top */}
+          {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+            <line key={`gt-${i}`} x1={62 + i * 40} y1="20" x2={62 + i * 40} y2="55" stroke="hsl(217 91% 60% / 0.04)" strokeWidth="0.5" />
+          ))}
+          {/* Glass wall raster pattern - bottom */}
+          {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+            <line key={`gb-${i}`} x1={62 + i * 40} y1="465" x2={62 + i * 40} y2="500" stroke="hsl(217 91% 60% / 0.04)" strokeWidth="0.5" />
+          ))}
+          {/* Glass wall raster pattern - left */}
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => (
+            <line key={`gl-${i}`} x1="20" y1={55 + i * 40} x2="46" y2={55 + i * 40} stroke="hsl(217 91% 60% / 0.04)" strokeWidth="0.5" />
+          ))}
+          {/* Glass wall raster pattern - right */}
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => (
+            <line key={`gr-${i}`} x1="334" y1={55 + i * 40} x2="360" y2={55 + i * 40} stroke="hsl(217 91% 60% / 0.04)" strokeWidth="0.5" />
+          ))}
+          
+          {/* Net posts */}
+          <circle cx="46" cy="260" r="3" stroke="hsl(217 91% 60% / 0.12)" strokeWidth="1" />
+          <circle cx="334" cy="260" r="3" stroke="hsl(217 91% 60% / 0.12)" strokeWidth="1" />
+
+          {/* Corner glass panel accents */}
+          <path d="M20 20 L20 80" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M20 20 L80 20" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M360 20 L360 80" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M360 20 L300 20" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M20 500 L20 440" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M20 500 L80 500" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M360 500 L360 440" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+          <path d="M360 500 L300 500" stroke="hsl(217 91% 60% / 0.1)" strokeWidth="2" />
+        </svg>
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1240px] px-5 py-24 lg:py-0">
@@ -33,7 +73,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p className="stagger-fade mt-6 max-w-[480px] font-body text-[17px] leading-relaxed text-muted" style={{ animationDelay: '200ms' }}>
-            Jouw alles-in-één platform voor padel in Nederland. Van vrije banen en gear reviews tot trainingstips die je spel écht naar een hoger niveau tillen.
+            Jouw alles-in-een platform voor padel in Nederland. Van vrije banen en gear reviews tot trainingstips die je spel echt naar een hoger niveau tillen.
           </p>
 
           {/* CTAs */}
