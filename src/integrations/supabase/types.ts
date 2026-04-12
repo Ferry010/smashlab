@@ -14,7 +14,199 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          club_id: string
+          court_id: string
+          created_at: string
+          date: string
+          duration_minutes: number
+          end_time: string
+          id: string
+          payment_id: string | null
+          playtomic_resource_id: string | null
+          price_cents: number | null
+          start_time: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          club_id: string
+          court_id: string
+          created_at?: string
+          date: string
+          duration_minutes?: number
+          end_time: string
+          id?: string
+          payment_id?: string | null
+          playtomic_resource_id?: string | null
+          price_cents?: number | null
+          start_time: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          club_id?: string
+          court_id?: string
+          created_at?: string
+          date?: string
+          duration_minutes?: number
+          end_time?: string
+          id?: string
+          payment_id?: string | null
+          playtomic_resource_id?: string | null
+          price_cents?: number | null
+          start_time?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_court_id_fkey"
+            columns: ["court_id"]
+            isOneToOne: false
+            referencedRelation: "courts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clubs: {
+        Row: {
+          address: string | null
+          city: string
+          created_at: string
+          has_indoor: boolean | null
+          has_outdoor: boolean | null
+          id: string
+          image_url: string | null
+          lat: number | null
+          lng: number | null
+          name: string
+          phone: string | null
+          playtomic_tenant_id: string | null
+          postcode: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          city: string
+          created_at?: string
+          has_indoor?: boolean | null
+          has_outdoor?: boolean | null
+          id?: string
+          image_url?: string | null
+          lat?: number | null
+          lng?: number | null
+          name: string
+          phone?: string | null
+          playtomic_tenant_id?: string | null
+          postcode?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string
+          created_at?: string
+          has_indoor?: boolean | null
+          has_outdoor?: boolean | null
+          id?: string
+          image_url?: string | null
+          lat?: number | null
+          lng?: number | null
+          name?: string
+          phone?: string | null
+          playtomic_tenant_id?: string | null
+          postcode?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      courts: {
+        Row: {
+          club_id: string
+          created_at: string
+          id: string
+          is_indoor: boolean | null
+          name: string
+          surface_type: string | null
+        }
+        Insert: {
+          club_id: string
+          created_at?: string
+          id?: string
+          is_indoor?: boolean | null
+          name: string
+          surface_type?: string | null
+        }
+        Update: {
+          club_id?: string
+          created_at?: string
+          id?: string
+          is_indoor?: boolean | null
+          name?: string
+          surface_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courts_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reviews: {
+        Row: {
+          club_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          club_id: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          club_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
