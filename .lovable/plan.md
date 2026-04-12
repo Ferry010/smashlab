@@ -1,58 +1,57 @@
 
 
-# Vrije Banen: What's Needed
+# Color Scheme + Padel Line Art Visual Overhaul
 
-Making the court finder functional requires three layers: **data**, **users**, and **booking**.
+## Color Scheme
 
-## 1. Backend Setup (Lovable Cloud / Supabase)
+Inspired by the uploaded court photos: deep navy/dark blue backgrounds, electric blue accents, with white/light text. Replacing the current lime-green scheme.
 
-- **Enable Lovable Cloud** for database + auth + edge functions
-- **Database tables:**
-  - `clubs` (name, city, postcode, lat/lng, playtomic_id, contact info, indoor/outdoor)
-  - `courts` (club_id, name, surface type, indoor/outdoor)
-  - `bookings` (user_id, court_id, date, time_slot, status, payment_id)
-  - `reviews` (user_id, club_id, rating, comment)
-- **Auth:** Email + password signup so users can book and leave reviews
+**New palette:**
+- Background: deep navy `#0A1628` (was off-black `#111210`)
+- bg-2: `#0E1D35`
+- bg-3: `#132742`
+- bg-4: `#1A3155`
+- Foreground: warm white `#F0F2EC` (keep)
+- Primary accent: electric blue `#3B82F6` (replacing lime `#C8FF00`)
+- Accent dim: `#2563EB`
+- Muted: `#6B7FA0`
+- Muted-2: `#3D4F6F`
+- Border: `#1E3A5F`
+- Border-2: `#264A73`
 
-## 2. Playtomic Integration (Edge Function)
+## Padel Line Art Decorations
 
-- **Edge function `search-courts`**: Accepts city/postcode, queries Playtomic's API for real-time availability
-- Playtomic has an unofficial REST API (`playtomic.io/api/v1/`) for searching clubs and time slots by location
-- The edge function proxies these calls server-side (avoids CORS, keeps any keys safe)
-- Returns merged results: Playtomic clubs + any manually added clubs from the `clubs` table
+Replace the current abstract rectangle/diagonal CSS shapes with recognizable 2D line drawings of padel elements, rendered as inline SVG components:
 
-## 3. Booking Flow
+1. **Hero section**: A perspective padel court with net, service lines, and glass walls as thin stroke SVGs (replacing the current decorative rectangles)
+2. **Section dividers / accents**: Small line-art icons scattered as decorative elements:
+   - Padel net (side view, clean lines)
+   - Court lines (top-down view of half-court)
+   - Glass panel with metal raster/cage pattern
+   - Racket outline (optional, subtle)
 
-- **Option A (simpler, recommended first):** Link out to Playtomic for actual booking. Show availability on Smashlab, redirect to Playtomic to complete payment.
-- **Option B (full, as requested):** Native booking requires:
-  - Stripe payment integration
-  - A booking confirmation edge function
-  - Club partnership agreements (they need to honor bookings)
-  - Cancellation/refund logic
+## Files to Modify
 
-Since you chose "Book on Smashlab," this is significant backend work. My recommendation: **start with Option A** (show availability + link to Playtomic) so the tool is useful immediately, then layer in native booking once club partnerships are in place.
+1. **`src/index.css`** - Update all CSS custom properties to new blue palette
+2. **`tailwind.config.ts`** - Rename `lime` to `accent` (or keep `lime` name but change values)
+3. **`src/components/Hero.tsx`** - Replace decorative divs with padel court SVG line art, update radial glow color
+4. **`src/components/Navbar.tsx`** - Colors auto-update via CSS vars
+5. **`src/components/Marquee.tsx`** - Diamond separator color updates via vars
+6. **`src/components/Categories.tsx`** - Card hover/accent colors via vars
+7. **`src/components/VrijeBanen.tsx`** - Search UI accent colors via vars
+8. **`src/components/Blogs.tsx`** - Badge/link colors via vars
+9. **`src/components/Niveau.tsx`** - Number ghost color, tag styles via vars
+10. **`src/components/Newsletter.tsx`** - Top border, button colors via vars
+11. **`src/components/Footer.tsx`** - Logo accent via vars
+12. **`mem://index.md`** - Update core memory with new color scheme
 
-## 4. Frontend Changes
+Most components use CSS variables (`text-lime`, `bg-lime`, `border-lime`) so the bulk of the change happens in `src/index.css`. The Hero SVG art is the main component-level change.
 
-- Enable the search bar, wire it to the `search-courts` edge function
-- Results view: list of clubs with available time slots, filters (indoor/outdoor, date, time)
-- Club detail view with reviews
-- Booking confirmation modal + Stripe checkout
+## SVG Line Art (Hero)
 
-## 5. Prerequisites Before We Start
-
-1. **Enable Lovable Cloud** (database + auth + edge functions)
-2. **Playtomic API access** needs investigation. Their API is unofficial, so we need to verify current endpoints work. Alternatively, we could scrape or use a different data source.
-3. **Stripe** for payments (if doing native booking)
-
-## Suggested Build Order
-
-1. Enable Lovable Cloud + create database schema
-2. Build the Playtomic search edge function
-3. Wire up the search UI with results
-4. Add user auth (signup/login)
-5. Add club detail + reviews
-6. Add Stripe + native booking (or start with Playtomic redirect)
-
-Want me to start with step 1 (enable Lovable Cloud + schema)?
+A clean, minimal padel court illustration:
+- Top-down court layout with center line, service boxes
+- Net as a dashed/hatched horizontal line
+- Glass walls as rectangles with a subtle grid pattern (the raster)
+- All rendered as `stroke` only, no fills, using the accent blue at low opacity
 
