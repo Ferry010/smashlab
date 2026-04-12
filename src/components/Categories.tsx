@@ -21,9 +21,9 @@ export default function Categories() {
           {cards.map((c) => (
             <div
               key={c.title}
-              className={`group rounded-lg border border-border bg-bg-3 p-7 transition-all duration-150 ease-out hover:-translate-y-[3px] hover:border-lime/30 hover:shadow-[4px_8px_24px_0_rgba(200,255,0,0.04)] ${c.featured ? 'sm:col-span-2' : ''}`}
+              className={`group rounded-lg border border-border bg-bg-3 p-7 transition-all duration-150 ease-out hover:-translate-y-[3px] hover:border-lime/30 hover:shadow-[4px_8px_24px_0_rgba(59,130,246,0.06)] ${c.featured ? 'sm:col-span-2' : ''}`}
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg text-xl" style={{ background: 'rgba(200,255,0,0.1)' }}>
+              <div className="flex h-11 w-11 items-center justify-center rounded-lg text-xl" style={{ background: 'hsla(14, 90%, 52%, 0.1)' }}>
                 {c.emoji}
               </div>
               <h3 className="mt-4 font-display text-2xl text-foreground">{c.title}</h3>
