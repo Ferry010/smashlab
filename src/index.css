@@ -4,45 +4,45 @@
 
 @layer base {
   :root {
-    --background: 100 4% 7%;
-    --bg: 100 4% 7%;
-    --bg-2: 100 4% 9%;
-    --bg-3: 100 4% 12%;
-    --bg-4: 100 4% 15%;
+    --background: 216 56% 10%;
+    --bg: 216 56% 10%;
+    --bg-2: 216 52% 13%;
+    --bg-3: 214 48% 17%;
+    --bg-4: 214 44% 22%;
     --foreground: 80 11% 94%;
     --white: 80 11% 94%;
-    --muted: 80 4% 54%;
-    --muted-2: 80 4% 33%;
-    --muted-foreground: 80 4% 54%;
-    --lime: 72 100% 50%;
-    --lime-dim: 72 80% 43%;
-    --border: 80 4% 18%;
-    --border-2: 80 4% 22%;
-    --input: 80 4% 18%;
-    --ring: 72 100% 50%;
+    --muted: 216 20% 53%;
+    --muted-2: 216 22% 34%;
+    --muted-foreground: 216 20% 53%;
+    --lime: 217 91% 60%;
+    --lime-dim: 224 85% 53%;
+    --border: 212 50% 25%;
+    --border-2: 210 48% 30%;
+    --input: 212 50% 25%;
+    --ring: 217 91% 60%;
     --radius: 0.625rem;
 
-    --card: 100 4% 12%;
+    --card: 214 48% 17%;
     --card-foreground: 80 11% 94%;
-    --popover: 100 4% 12%;
+    --popover: 214 48% 17%;
     --popover-foreground: 80 11% 94%;
-    --primary: 72 100% 50%;
-    --primary-foreground: 100 4% 7%;
-    --secondary: 100 4% 15%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 44% 22%;
     --secondary-foreground: 80 11% 94%;
-    --accent: 100 4% 15%;
+    --accent: 214 44% 22%;
     --accent-foreground: 80 11% 94%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 80 11% 94%;
 
-    --sidebar-background: 100 4% 9%;
+    --sidebar-background: 216 52% 13%;
     --sidebar-foreground: 80 11% 94%;
-    --sidebar-primary: 72 100% 50%;
-    --sidebar-primary-foreground: 100 4% 7%;
-    --sidebar-accent: 100 4% 15%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 44% 22%;
     --sidebar-accent-foreground: 80 11% 94%;
-    --sidebar-border: 80 4% 18%;
-    --sidebar-ring: 72 100% 50%;
+    --sidebar-border: 212 50% 25%;
+    --sidebar-ring: 217 91% 60%;
   }
 }
 
@@ -104,7 +104,7 @@
   animation: marquee 35s linear infinite;
 }
 
-/* Lime section bar */
+/* Accent section bar */
 .section-bar::before {
   content: '';
   display: block;
