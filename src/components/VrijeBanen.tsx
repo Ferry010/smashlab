@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, MapPin, Clock, ChevronRight, Loader2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+
 
 interface Slot {
   resource_id: string;
