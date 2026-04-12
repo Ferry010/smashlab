@@ -1,57 +1,117 @@
 
 
-# Color Scheme + Padel Line Art Visual Overhaul
+# SMASHLAB V3 — Complete Visual Overhaul
 
-## Color Scheme
+## What's changing
 
-Inspired by the uploaded court photos: deep navy/dark blue backgrounds, electric blue accents, with white/light text. Replacing the current lime-green scheme.
+The entire color scheme reverts from navy+electric-blue to a **court-blue + lime-green** palette inspired by real padel courts. Every section gets updated styling, glass-morphism cards, court-line textures, and refined copy per the spec.
 
-**New palette:**
-- Background: deep navy `#0A1628` (was off-black `#111210`)
-- bg-2: `#0E1D35`
-- bg-3: `#132742`
-- bg-4: `#1A3155`
-- Foreground: warm white `#F0F2EC` (keep)
-- Primary accent: electric blue `#3B82F6` (replacing lime `#C8FF00`)
-- Accent dim: `#2563EB`
-- Muted: `#6B7FA0`
-- Muted-2: `#3D4F6F`
-- Border: `#1E3A5F`
-- Border-2: `#264A73`
+## Color palette swap
 
-## Padel Line Art Decorations
+| Variable | Current | New |
+|----------|---------|-----|
+| `--background` | `#0A1628` (navy) | `#1B3A6B` (court-blue) |
+| `--bg-2` / `--court-mid` | `#0E1D35` | `#0F2548` |
+| `--bg-3` / `--court-deep` | `#132742` | `#091830` |
+| `--bg-4` | `#1A3155` | `#1A3155` (keep) |
+| `--lime` | `#3B82F6` (blue!) | `#C8FF00` (lime green) |
+| `--lime-dim` | `#2563EB` | `#A8D800` |
+| `--foreground` | `#F0F2EC` | `#F4F6F0` |
+| `--glass` | n/a | `rgba(255,255,255,0.06)` |
+| `--glass-border` | n/a | `rgba(255,255,255,0.12)` |
+| `--line-white` | n/a | `rgba(255,255,255,0.15)` |
 
-Replace the current abstract rectangle/diagonal CSS shapes with recognizable 2D line drawings of padel elements, rendered as inline SVG components:
+## Files to modify
 
-1. **Hero section**: A perspective padel court with net, service lines, and glass walls as thin stroke SVGs (replacing the current decorative rectangles)
-2. **Section dividers / accents**: Small line-art icons scattered as decorative elements:
-   - Padel net (side view, clean lines)
-   - Court lines (top-down view of half-court)
-   - Glass panel with metal raster/cage pattern
-   - Racket outline (optional, subtle)
+### 1. `src/index.css`
+- Replace all CSS custom properties with new court-blue palette
+- Add court-line grid CSS pattern as reusable class (`.court-lines`)
+- Add glass-card utility class
+- Update `--primary-foreground` to `#091830` (dark text on lime buttons)
 
-## Files to Modify
+### 2. `tailwind.config.ts`
+- Update color mappings to match new vars
+- Keep `lime` name but now it maps to actual lime `#C8FF00`
 
-1. **`src/index.css`** - Update all CSS custom properties to new blue palette
-2. **`tailwind.config.ts`** - Rename `lime` to `accent` (or keep `lime` name but change values)
-3. **`src/components/Hero.tsx`** - Replace decorative divs with padel court SVG line art, update radial glow color
-4. **`src/components/Navbar.tsx`** - Colors auto-update via CSS vars
-5. **`src/components/Marquee.tsx`** - Diamond separator color updates via vars
-6. **`src/components/Categories.tsx`** - Card hover/accent colors via vars
-7. **`src/components/VrijeBanen.tsx`** - Search UI accent colors via vars
-8. **`src/components/Blogs.tsx`** - Badge/link colors via vars
-9. **`src/components/Niveau.tsx`** - Number ghost color, tag styles via vars
-10. **`src/components/Newsletter.tsx`** - Top border, button colors via vars
-11. **`src/components/Footer.tsx`** - Logo accent via vars
-12. **`mem://index.md`** - Update core memory with new color scheme
+### 3. `src/components/Hero.tsx`
+- Background: gradient `linear-gradient(160deg, #091830, #1B3A6B 60%, #0F2548)`
+- Court-line grid overlay
+- Lime radial glow top-right instead of blue
+- Update SVG court: add 2 lime player dots, 2 white opponent circles, 1 lime ball dot
+- H1: `OWN.` / `THE.` / `COURT.` (each on own line, COURT in lime)
+- Subheadline: "Alles wat je nodig hebt als padelspeler. Op één plek."
+- Eyebrow: `SMASHLAB.NL` pill badge with pulsing lime dot
+- Stats with vertical dividers instead of border-top
 
-Most components use CSS variables (`text-lime`, `bg-lime`, `border-lime`) so the bulk of the change happens in `src/index.css`. The Hero SVG art is the main component-level change.
+### 4. `src/components/Navbar.tsx`
+- Background: `rgba(9,24,48,0.85)` + blur(20px)
+- Border: `rgba(255,255,255,0.08)`
+- Logo: SMASH in lime, LAB in white (already correct pattern)
 
-## SVG Line Art (Hero)
+### 5. `src/components/Marquee.tsx`
+- Background: `--court-deep` (#091830)
+- Diamonds in lime
 
-A clean, minimal padel court illustration:
-- Top-down court layout with center line, service boxes
-- Net as a dashed/hatched horizontal line
-- Glass walls as rectangles with a subtle grid pattern (the raster)
-- All rendered as `stroke` only, no fills, using the accent blue at low opacity
+### 6. `src/components/VrijeBanen.tsx`
+- Section bg: `--court-mid` (#0F2548)
+- Glass-style tool card with backdrop-filter
+- Lime accent bar top
+- Keep functional search logic intact
+
+### 7. `src/components/Categories.tsx`
+- Section bg: `--court-blue` (#1B3A6B)
+- Glass cards with hover glow
+- Featured card spans 2 cols with racket SVG outline
+- Emoji icon blocks with lime bg at 0.1 opacity
+
+### 8. `src/components/Blogs.tsx`
+- Section bg: `--court-deep` (#091830)
+- Glass-style blog cards
+- Court-line pattern on image placeholders
+- Lime pills and links
+
+### 9. `src/components/Niveau.tsx`
+- Section bg: `--court-mid` (#0F2548)
+- Ghost numbers in `rgba(200,255,0,0.08)`
+
+### 10. `src/components/Newsletter.tsx`
+- Section bg: `--court-blue` (#1B3A6B)
+- Border-top: lime 3px
+- Court-line overlay
+
+### 11. `src/components/Footer.tsx`
+- Background: `--court-deep` (#091830)
+- Footer copy update: "Het go-to padel platform van Nederland."
+
+### 12. `index.html`
+- SEO meta already mostly correct, minor keyword update
+
+### 13. `.lovable/memory/index.md`
+- Update core memory: lime is `#C8FF00` again, court-blue palette
+
+## Key design patterns (reusable)
+
+**Glass card:**
+```css
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 12px;
+backdrop-filter: blur(8px);
+```
+
+**Court-line grid:**
+```css
+background-image: 
+  linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+background-size: 80px 80px;
+```
+
+## What stays the same
+- All functional logic (search, API calls, form submission)
+- Component structure and routing
+- Edge function and database schema
+- Font families (Bebas Neue + DM Sans)
+- Scroll reveal and animation patterns
+- SEO structured data
 
