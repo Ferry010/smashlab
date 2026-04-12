@@ -69,7 +69,7 @@ export default function VrijeBanen() {
   };
 
   return (
-    <section id="vrije-banen" className="bg-background py-20 lg:py-28">
+    <section id="vrije-banen" className="bg-bg-2 py-20 lg:py-28">
       <div className="mx-auto max-w-[1240px] px-5">
         <p className="section-bar font-body text-xs font-semibold uppercase tracking-widest text-lime">TOOL</p>
         <h2 className="font-display text-4xl text-foreground lg:text-5xl">VRIJE BANEN IN DE BUURT</h2>
@@ -77,14 +77,14 @@ export default function VrijeBanen() {
           Boek vandaag nog een court. Real-time beschikbaarheid bij clubs bij jou in de buurt.
         </p>
 
-        <div className="reveal mt-10 overflow-hidden rounded-lg border border-border bg-bg-3">
+        <div className="reveal mt-10 overflow-hidden rounded-xl glass-card">
           {/* Lime accent bar */}
-          <div className="h-[3px]" style={{ background: 'linear-gradient(90deg, hsl(var(--lime)), transparent)' }} />
+          <div className="h-[3px]" style={{ background: 'linear-gradient(90deg, #C8FF00, transparent)' }} />
 
           <div className="p-7 lg:p-10">
             {/* Search bar */}
             <div className="flex flex-col gap-3 sm:flex-row">
-              <div className="flex flex-1 items-center gap-2 rounded-full border border-border bg-bg-4 px-4">
+              <div className="flex flex-1 items-center gap-2 rounded-full px-4" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}>
                 <Search size={16} className="text-muted" />
                 <input
                   value={query}
@@ -98,12 +98,13 @@ export default function VrijeBanen() {
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="rounded-full border border-border bg-bg-4 px-4 py-3 font-body text-sm text-foreground outline-none"
+                className="rounded-full px-4 py-3 font-body text-sm text-foreground outline-none"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
               />
               <button
                 onClick={handleSearch}
                 disabled={loading || !query.trim()}
-                className="rounded-full bg-lime px-6 py-3 font-body text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
+                className="rounded-full bg-lime px-6 py-3 font-body text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
               >
                 {loading ? <Loader2 size={16} className="animate-spin" /> : 'Zoek banen'}
               </button>
@@ -128,7 +129,7 @@ export default function VrijeBanen() {
                 {venues.map((venue) => (
                   <div
                     key={venue.tenant_id}
-                    className="rounded-lg border border-border bg-bg-4 p-5 transition-colors hover:border-lime/30"
+                    className="glass-card rounded-lg p-5 transition-colors hover:border-lime/30"
                   >
                     <div className="flex items-start justify-between">
                       <div>
@@ -140,12 +141,12 @@ export default function VrijeBanen() {
                       </div>
                       <div className="flex gap-1">
                         {venue.has_indoor && (
-                          <span className="rounded-full bg-lime/10 px-2 py-0.5 font-body text-[10px] font-semibold text-lime">
+                          <span className="rounded-full px-2 py-0.5 font-body text-[10px] font-semibold text-lime" style={{ background: 'rgba(200,255,0,0.1)' }}>
                             INDOOR
                           </span>
                         )}
                         {venue.has_outdoor && (
-                          <span className="rounded-full bg-lime/10 px-2 py-0.5 font-body text-[10px] font-semibold text-lime">
+                          <span className="rounded-full px-2 py-0.5 font-body text-[10px] font-semibold text-lime" style={{ background: 'rgba(200,255,0,0.1)' }}>
                             OUTDOOR
                           </span>
                         )}
@@ -161,11 +162,12 @@ export default function VrijeBanen() {
                           {venue.slots.slice(0, 8).map((slot, i) => (
                             <button
                               key={`${slot.resource_id}-${i}`}
-                              className="flex items-center gap-1 rounded-full border border-lime/20 bg-lime/5 px-3 py-1.5 font-body text-xs text-foreground transition-colors hover:border-lime hover:bg-lime/10"
+                              className="flex items-center gap-1 rounded-full px-3 py-1.5 font-body text-xs text-foreground transition-colors hover:bg-lime/10"
+                              style={{ border: '1px solid rgba(200,255,0,0.2)', background: 'rgba(200,255,0,0.05)' }}
                             >
                               <Clock size={10} className="text-lime" />
                               {formatTime(slot.start_time)}
-                              <span className="text-muted">·</span>
+                              <span className="text-muted">&middot;</span>
                               <span className="text-lime">{slot.price ? `€${slot.price}` : 'Gratis'}</span>
                             </button>
                           ))}
@@ -188,9 +190,8 @@ export default function VrijeBanen() {
             {/* Empty state before search */}
             {!searched && (
               <div className="mt-10 grid gap-10 lg:grid-cols-2">
-                {/* Left */}
                 <div>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-lime/30 px-3 py-1 font-body text-[11px] font-semibold uppercase tracking-wider text-lime">
+                  <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 font-body text-[11px] font-semibold uppercase tracking-wider text-lime" style={{ border: '1px solid rgba(200,255,0,0.3)', background: 'rgba(200,255,0,0.06)' }}>
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
@@ -206,7 +207,6 @@ export default function VrijeBanen() {
                   </p>
                 </div>
 
-                {/* Right - features */}
                 <div className="flex flex-col justify-center">
                   <ul className="w-full space-y-3 font-body text-[13px] text-muted">
                     {[

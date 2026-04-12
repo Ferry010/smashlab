@@ -6,18 +6,18 @@ const levels = [
 
 export default function Niveau() {
   return (
-    <section id="niveau" className="border-b border-t border-border bg-bg-2 py-20 lg:py-28">
+    <section id="niveau" className="bg-bg-2 py-20 lg:py-28" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
       <div className="mx-auto max-w-[1240px] px-5">
         <p className="section-bar font-body text-xs font-semibold uppercase tracking-widest text-lime">VOOR IEDEREEN</p>
-        <div className="reveal mt-8 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {levels.map((l) => (
-            <div key={l.num} className="py-8 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0">
-              <span className="font-display text-[52px] leading-none text-lime/[0.12]">{l.num}</span>
-              <h3 className="mt-2 font-display text-[26px] text-foreground">{l.name}</h3>
+        <div className="reveal mt-8 grid sm:grid-cols-3" style={{ gap: 0 }}>
+          {levels.map((l, i) => (
+            <div key={l.num} className="py-8 sm:py-0 sm:px-8 sm:first:pl-0 sm:last:pr-0" style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
+              <span className="font-display text-[64px] leading-none" style={{ color: 'rgba(200,255,0,0.08)' }}>{l.num}</span>
+              <h3 className="mt-2 font-display text-[28px] text-foreground">{l.name}</h3>
               <p className="mt-2 font-body text-[13px] leading-relaxed text-muted">{l.desc}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {l.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-border-2 px-3 py-1 font-body text-[11px] text-muted">{t}</span>
+                  <span key={t} className="rounded-full px-3 py-1 font-body text-[11px] text-muted" style={{ border: '1px solid rgba(255,255,255,0.12)' }}>{t}</span>
                 ))}
               </div>
             </div>

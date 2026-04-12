@@ -6,14 +6,14 @@ const cols = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
+    <footer className="bg-bg-3" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
       <div className="mx-auto grid max-w-[1240px] gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <a href="#" className="font-display text-2xl">
             <span className="text-lime">SMASH</span><span className="text-foreground">LAB</span>
           </a>
           <p className="mt-3 font-body text-[13px] leading-relaxed text-muted">
-            Het ultieme padel platform van Nederland. Voor elk niveau, elke baan, elk doel.
+            Het go-to padel platform van Nederland. Voor elk niveau, elke baan, elk doel.
           </p>
         </div>
         {cols.map((c) => (
@@ -27,10 +27,10 @@ export default function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t border-border">
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="mx-auto flex max-w-[1240px] flex-col items-center justify-between gap-2 px-5 py-5 sm:flex-row">
-          <p className="font-body text-xs text-muted-2">© 2026 Smashlab.nl · Alle rechten voorbehouden</p>
-          <a href="#" className="font-body text-xs text-muted-2 transition-colors hover:text-muted">Affiliate disclaimer</a>
+          <p className="font-body text-xs text-muted-2">&copy; 2026 Smashlab.nl</p>
+          <a href="#" className="font-body text-xs text-lime transition-colors hover:text-lime-dim">Affiliate disclaimer</a>
         </div>
       </div>
     </footer>
