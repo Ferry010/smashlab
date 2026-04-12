@@ -5,31 +5,22 @@ const corsHeaders = {
 
 const PLAYTOMIC_API = "https://api.playtomic.io/v1";
 
-interface PlaytomicTenant {
-  tenant_id: string;
-  tenant_name: string;
-  address: {
-    street: string;
-    city: string;
-    postal_code: string;
-    country: string;
-  };
-  coord: { lat: number; lon: number };
-  properties?: {
-    indoor?: boolean;
-    outdoor?: boolean;
-  };
-  images?: Array<{ image_id: string; url: string }>;
-  opening_hours?: Record<string, unknown>;
-}
-
-interface PlaytomicSlot {
-  resource_id: string;
-  resource_name?: string;
-  start_time: string;
-  duration: number;
-  price: string;
-  currency: string;
+// Simple geocoding using Nominatim (free, no API key)
+async function geocode(query: string): Promise<{ lat: number; lng: number } | null> {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ', Nederland')}&format=json&limit=1`,
+      { headers: { 'User-Agent': 'Smashlab/1.0' } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data.length > 0) {
+      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 Deno.serve(async (req) => {
@@ -41,8 +32,8 @@ Deno.serve(async (req) => {
     const url = new URL(req.url);
     const query = url.searchParams.get("q") || "";
     const date = url.searchParams.get("date") || new Date().toISOString().split("T")[0];
-    const lat = url.searchParams.get("lat");
-    const lng = url.searchParams.get("lng");
+    let lat = url.searchParams.get("lat") ? parseFloat(url.searchParams.get("lat")!) : null;
+    let lng = url.searchParams.get("lng") ? parseFloat(url.searchParams.get("lng")!) : null;
 
     if (!query && !lat) {
       return new Response(
@@ -51,7 +42,16 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Step 1: Search Playtomic for venues
+    // Geocode text query to coordinates
+    if (!lat && query) {
+      const geo = await geocode(query);
+      if (geo) {
+        lat = geo.lat;
+        lng = geo.lng;
+      }
+    }
+
+    // Search Playtomic tenants
     const searchParams = new URLSearchParams({
       sport_id: "PADEL",
       size: "20",
@@ -59,14 +59,24 @@ Deno.serve(async (req) => {
 
     if (lat && lng) {
       searchParams.set("coordinate", `${lat},${lng}`);
-      searchParams.set("radius", "50000");
-    } else if (query) {
+      searchParams.set("radius", "50000"); // 50km
+    } else {
+      // Fallback: use query text
       searchParams.set("q", query);
     }
 
     const tenantsRes = await fetch(`${PLAYTOMIC_API}/tenants?${searchParams.toString()}`, {
       headers: { "Content-Type": "application/json" },
     });
+
+    interface PlaytomicTenant {
+      tenant_id: string;
+      tenant_name: string;
+      address?: { street?: string; city?: string; postal_code?: string };
+      coord?: { lat: number; lon: number };
+      properties?: { indoor?: boolean; outdoor?: boolean };
+      images?: Array<{ url: string }>;
+    }
 
     let venues: Array<{
       tenant_id: string;
@@ -92,10 +102,19 @@ Deno.serve(async (req) => {
     if (tenantsRes.ok) {
       const tenants: PlaytomicTenant[] = await tenantsRes.json();
 
-      // Step 2: Fetch availability for each venue (parallel, max 5)
+      // Fetch availability for each venue in parallel
+      const startMin = `${date}T00:00:00`;
+      const startMax = `${date}T23:59:59`;
+
       const venuePromises = tenants.slice(0, 10).map(async (tenant) => {
-        const startMin = `${date}T00:00:00`;
-        const startMax = `${date}T23:59:59`;
+        let slots: Array<{
+          resource_id: string;
+          court_name: string;
+          start_time: string;
+          duration: number;
+          price: string;
+          currency: string;
+        }> = [];
 
         try {
           const availRes = await fetch(
@@ -103,55 +122,35 @@ Deno.serve(async (req) => {
             { headers: { "Content-Type": "application/json" } }
           );
 
-          let slots: Array<{
-            resource_id: string;
-            court_name: string;
-            start_time: string;
-            duration: number;
-            price: string;
-            currency: string;
-          }> = [];
-
           if (availRes.ok) {
-            const availData: PlaytomicSlot[] = await availRes.json();
-            slots = (Array.isArray(availData) ? availData : []).map((s) => ({
-              resource_id: s.resource_id,
-              court_name: s.resource_name || `Court ${s.resource_id}`,
-              start_time: s.start_time,
-              duration: s.duration,
-              price: s.price,
-              currency: s.currency || "EUR",
+            const availData = await availRes.json();
+            const arr = Array.isArray(availData) ? availData : [];
+            slots = arr.map((s: Record<string, unknown>) => ({
+              resource_id: String(s.resource_id || ""),
+              court_name: String(s.resource_name || `Court`),
+              start_time: String(s.start_time || ""),
+              duration: Number(s.duration || 90),
+              price: String(s.price || ""),
+              currency: String(s.currency || "EUR"),
             }));
           }
-
-          return {
-            tenant_id: tenant.tenant_id,
-            name: tenant.tenant_name,
-            city: tenant.address?.city || "",
-            address: tenant.address?.street || "",
-            postcode: tenant.address?.postal_code || "",
-            lat: tenant.coord?.lat || 0,
-            lng: tenant.coord?.lon || 0,
-            has_indoor: tenant.properties?.indoor ?? false,
-            has_outdoor: tenant.properties?.outdoor ?? true,
-            image_url: tenant.images?.[0]?.url || null,
-            slots,
-          };
         } catch {
-          return {
-            tenant_id: tenant.tenant_id,
-            name: tenant.tenant_name,
-            city: tenant.address?.city || "",
-            address: tenant.address?.street || "",
-            postcode: tenant.address?.postal_code || "",
-            lat: tenant.coord?.lat || 0,
-            lng: tenant.coord?.lon || 0,
-            has_indoor: false,
-            has_outdoor: true,
-            image_url: null,
-            slots: [],
-          };
+          // Availability fetch failed, continue with empty slots
         }
+
+        return {
+          tenant_id: tenant.tenant_id,
+          name: tenant.tenant_name,
+          city: tenant.address?.city || "",
+          address: tenant.address?.street || "",
+          postcode: tenant.address?.postal_code || "",
+          lat: tenant.coord?.lat || 0,
+          lng: tenant.coord?.lon || 0,
+          has_indoor: tenant.properties?.indoor ?? false,
+          has_outdoor: tenant.properties?.outdoor ?? true,
+          image_url: tenant.images?.[0]?.url || null,
+          slots,
+        };
       });
 
       venues = await Promise.all(venuePromises);
