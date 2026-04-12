@@ -6,7 +6,7 @@ function MarqueeContent() {
       {items.map((item, i) => (
         <span key={i} className="flex shrink-0 items-center gap-6">
           <span className="font-display text-[15px] uppercase tracking-wider text-muted-2">{item}</span>
-          <span className="text-lime">◆</span>
+          <span className="text-red">◆</span>
         </span>
       ))}
     </>

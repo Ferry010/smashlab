@@ -31,6 +31,10 @@ export default {
           DEFAULT: "hsl(var(--lime))",
           dim: "hsl(var(--lime-dim))",
         },
+        red: {
+          DEFAULT: "hsl(var(--red))",
+          dim: "hsl(var(--red-dim))",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",

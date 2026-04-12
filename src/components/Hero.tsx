@@ -2,7 +2,10 @@ export default function Hero() {
   return (
     <section className="grain-overlay relative flex min-h-screen items-center overflow-hidden bg-background">
       {/* Radial blue glow */}
+      {/* Radial blue glow */}
       <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2" style={{ background: 'radial-gradient(ellipse at 80% 40%, rgba(59,130,246,0.08) 0%, transparent 70%)' }} />
+      {/* Subtle red/orange glow (court surround) */}
+      <div className="pointer-events-none absolute bottom-0 left-0 h-1/3 w-full" style={{ background: 'radial-gradient(ellipse at 30% 100%, rgba(227,73,28,0.04) 0%, transparent 60%)' }} />
 
       {/* Padel court line art */}
       <div className="pointer-events-none absolute right-[3%] top-1/2 hidden -translate-y-1/2 lg:block" style={{ width: 380, height: 520 }}>

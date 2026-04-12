@@ -4,7 +4,7 @@ export default function Newsletter() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <section id="nieuwsbrief" className="bg-bg-2" style={{ borderTop: '3px solid hsl(var(--lime))' }}>
+    <section id="nieuwsbrief" className="bg-bg-2" style={{ borderTop: '3px solid hsl(var(--red))' }}>
       <div className="mx-auto grid max-w-[1240px] gap-10 px-5 py-20 lg:grid-cols-2 lg:py-28">
         <div>
           <h2 className="font-display text-[52px] leading-none text-foreground">
