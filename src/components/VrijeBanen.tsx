@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Search, MapPin, Clock, ChevronRight, Loader2 } from 'lucide-react';
-
-
 interface Slot {
   resource_id: string;
   court_name: string;
