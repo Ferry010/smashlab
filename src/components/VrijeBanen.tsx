@@ -38,12 +38,6 @@ export default function VrijeBanen() {
     setSearched(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('search-courts', {
-        body: null,
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      // Use query params approach via URL
       const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
       const url = `https://${projectId}.supabase.co/functions/v1/search-courts?q=${encodeURIComponent(query)}&date=${selectedDate}`;
       
