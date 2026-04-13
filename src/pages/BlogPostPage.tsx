@@ -15,12 +15,14 @@ export default function BlogPostPage({ article, children }: BlogPostPageProps) {
         {/* Header */}
         <header className="court-lines relative bg-bg-2 pb-12 pt-24 lg:pb-16 lg:pt-32">
           <div className="mx-auto max-w-[820px] px-5">
-            <Link to="/#blogs" className="mb-6 inline-flex items-center gap-2 font-body text-sm text-muted hover:text-lime transition-colors">
+            <Link to="/#blogs" className="mb-4 inline-flex items-center gap-2 font-body text-sm text-muted hover:text-lime transition-colors">
               <ArrowLeft className="h-4 w-4" /> Terug naar blogs
             </Link>
-            <span className="mb-4 inline-block rounded-full bg-lime px-3 py-1 font-body text-[11px] font-bold uppercase text-primary-foreground">
-              {article.category}
-            </span>
+            <div className="mb-4">
+              <span className="inline-block rounded-full bg-lime px-3 py-1 font-body text-[11px] font-bold uppercase text-primary-foreground">
+                {article.category}
+              </span>
+            </div>
             <h1 className="font-display text-4xl text-foreground lg:text-5xl xl:text-6xl leading-none">
               {article.title.toUpperCase()}
             </h1>
