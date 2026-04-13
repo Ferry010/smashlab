@@ -1,117 +1,148 @@
 
 
-# SMASHLAB V3 — Complete Visual Overhaul
+# Accounts + Onboarding + Badge Systeem
 
-## What's changing
+## Summary
+Build a complete user account system with authentication, a 4-step onboarding flow, and a gamification badge system -- all in the Smashlab court-blue/lime design language.
 
-The entire color scheme reverts from navy+electric-blue to a **court-blue + lime-green** palette inspired by real padel courts. Every section gets updated styling, glass-morphism cards, court-line textures, and refined copy per the spec.
+## 1. Database Migration
 
-## Color palette swap
+Create tables via migration:
 
-| Variable | Current | New |
-|----------|---------|-----|
-| `--background` | `#0A1628` (navy) | `#1B3A6B` (court-blue) |
-| `--bg-2` / `--court-mid` | `#0E1D35` | `#0F2548` |
-| `--bg-3` / `--court-deep` | `#132742` | `#091830` |
-| `--bg-4` | `#1A3155` | `#1A3155` (keep) |
-| `--lime` | `#3B82F6` (blue!) | `#C8FF00` (lime green) |
-| `--lime-dim` | `#2563EB` | `#A8D800` |
-| `--foreground` | `#F0F2EC` | `#F4F6F0` |
-| `--glass` | n/a | `rgba(255,255,255,0.06)` |
-| `--glass-border` | n/a | `rgba(255,255,255,0.12)` |
-| `--line-white` | n/a | `rgba(255,255,255,0.15)` |
+**`profiles`** -- linked to `auth.users(id)` with `ON DELETE CASCADE`, trigger to auto-create on signup. Fields: `username` (unique), `display_name`, `avatar_url`, `city`, `level` (default 'beginner'), `matches_played`, `courts_visited`, `login_count`, `total_points`, `onboarding_completed` (boolean), `updated_at` trigger.
 
-## Files to modify
+**`badges`** -- all badge definitions. Fields: `slug` (unique), `name`, `description`, `icon`, `category`, `points`, `rarity`, `unlock_trigger`.
 
-### 1. `src/index.css`
-- Replace all CSS custom properties with new court-blue palette
-- Add court-line grid CSS pattern as reusable class (`.court-lines`)
-- Add glass-card utility class
-- Update `--primary-foreground` to `#091830` (dark text on lime buttons)
+**`user_badges`** -- join table: `user_id` references `profiles(id)`, `badge_slug` references `badges(slug)`, `earned_at`, `seen` (boolean).
 
-### 2. `tailwind.config.ts`
-- Update color mappings to match new vars
-- Keep `lime` name but now it maps to actual lime `#C8FF00`
+**`activity_log`** -- `user_id` references `profiles(id)`, `action` (text), `metadata` (jsonb), `created_at`.
 
-### 3. `src/components/Hero.tsx`
-- Background: gradient `linear-gradient(160deg, #091830, #1B3A6B 60%, #0F2548)`
-- Court-line grid overlay
-- Lime radial glow top-right instead of blue
-- Update SVG court: add 2 lime player dots, 2 white opponent circles, 1 lime ball dot
-- H1: `OWN.` / `THE.` / `COURT.` (each on own line, COURT in lime)
-- Subheadline: "Alles wat je nodig hebt als padelspeler. Op één plek."
-- Eyebrow: `SMASHLAB.NL` pill badge with pulsing lime dot
-- Stats with vertical dividers instead of border-top
+**RLS policies:**
+- `profiles`: users can read all profiles (public), update only own
+- `badges`: readable by everyone, no public insert/update/delete
+- `user_badges`: readable by everyone, insert only own
+- `activity_log`: users can read/insert only own
 
-### 4. `src/components/Navbar.tsx`
-- Background: `rgba(9,24,48,0.85)` + blur(20px)
-- Border: `rgba(255,255,255,0.08)`
-- Logo: SMASH in lime, LAB in white (already correct pattern)
+**Seed data:** Insert all 30+ badges from the spec into `badges` table.
 
-### 5. `src/components/Marquee.tsx`
-- Background: `--court-deep` (#091830)
-- Diamonds in lime
+**Storage bucket:** `avatars` (public) for profile photos.
 
-### 6. `src/components/VrijeBanen.tsx`
-- Section bg: `--court-mid` (#0F2548)
-- Glass-style tool card with backdrop-filter
-- Lime accent bar top
-- Keep functional search logic intact
+## 2. Auth Configuration
+- Enable email+password auth (no auto-confirm -- users must verify email)
+- Configure Google OAuth via Lovable Cloud managed credentials
+- Configure social auth tool for Google sign-in
 
-### 7. `src/components/Categories.tsx`
-- Section bg: `--court-blue` (#1B3A6B)
-- Glass cards with hover glow
-- Featured card spans 2 cols with racket SVG outline
-- Emoji icon blocks with lime bg at 0.1 opacity
+## 3. New Pages & Routes
 
-### 8. `src/components/Blogs.tsx`
-- Section bg: `--court-deep` (#091830)
-- Glass-style blog cards
-- Court-line pattern on image placeholders
-- Lime pills and links
+| Route | Component | Purpose |
+|-------|-----------|---------|
+| `/registreren` | `RegisterPage.tsx` | Signup with username check, password strength |
+| `/inloggen` | `LoginPage.tsx` | Email/password + Google + magic link |
+| `/wachtwoord-vergeten` | `ForgotPasswordPage.tsx` | Password reset request |
+| `/reset-password` | `ResetPasswordPage.tsx` | Set new password (from email link) |
+| `/profiel` | `ProfilePage.tsx` | Own profile with badges + activity |
+| `/speler/:username` | `ProfilePage.tsx` | Public profile view |
 
-### 9. `src/components/Niveau.tsx`
-- Section bg: `--court-mid` (#0F2548)
-- Ghost numbers in `rgba(200,255,0,0.08)`
+All auth pages: full viewport, `court-deep` background, court-line grid overlay, centered glasmorphism card (max-w 440px), lime accent bar top.
 
-### 10. `src/components/Newsletter.tsx`
-- Section bg: `--court-blue` (#1B3A6B)
-- Border-top: lime 3px
-- Court-line overlay
+## 4. Auth Components
 
-### 11. `src/components/Footer.tsx`
-- Background: `--court-deep` (#091830)
-- Footer copy update: "Het go-to padel platform van Nederland."
+**`RegisterPage`:**
+- Fields: display name, username (debounced 500ms uniqueness check via Supabase), email, password (show/hide toggle + 4-segment strength meter), city (optional)
+- Google OAuth button (glasmorphism style)
+- Zod validation, inline errors in red `#FF6B6B`
+- On success: create profile via trigger, redirect to homepage (onboarding modal triggers on first login)
 
-### 12. `index.html`
-- SEO meta already mostly correct, minor keyword update
+**`LoginPage`:**
+- Email + password, "Vergeten?" link, Google OAuth, magic link option
+- Loading spinner state, error banner
+- On success: increment `login_count`, check if onboarding needed
 
-### 13. `.lovable/memory/index.md`
-- Update core memory: lime is `#C8FF00` again, court-blue palette
+**`ForgotPasswordPage` + `ResetPasswordPage`:**
+- Single-field flows per spec
 
-## Key design patterns (reusable)
+## 5. Auth Context
 
-**Glass card:**
-```css
-background: rgba(255,255,255,0.05);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 12px;
-backdrop-filter: blur(8px);
-```
+**`AuthProvider`** wrapping the app:
+- `onAuthStateChange` listener (set up before `getSession`)
+- Exposes `user`, `profile`, `loading`, `signOut`
+- On each login: increment `login_count` in profiles, log `login` activity, check badge triggers
 
-**Court-line grid:**
-```css
-background-image: 
-  linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-background-size: 80px 80px;
-```
+## 6. Onboarding Flow
 
-## What stays the same
-- All functional logic (search, API calls, form submission)
-- Component structure and routing
-- Edge function and database schema
-- Font families (Bebas Neue + DM Sans)
-- Scroll reveal and animation patterns
-- SEO structured data
+**`OnboardingModal`** -- rendered when `profile.login_count === 1 && !profile.onboarding_completed`:
+- Full viewport modal overlay, `z-index: 9999`, cannot dismiss by clicking outside
+- 4-step progress indicator (lime dots + connecting line)
+
+**Step 1 - Welkom:** Spring animation entrance, 3 feature pills, "Laten we beginnen" + skip option
+**Step 2 - Eerste Badge:** Award "Welkom aan Boord" badge with scale bounce animation + lime glow. Show 4 locked badge previews with tooltips.
+**Step 3 - Profiel Setup:** 3-card level selector (beginner/gevorderd/competitief), optional avatar upload to storage bucket. Save to profiles.
+**Step 4 - Klaar:** Checkmark SVG stroke animation, 3 action cards linking to banen/blogs/badges, confetti burst.
+
+On completion: set `onboarding_completed = true`.
+
+## 7. Badge System
+
+**`checkAndAwardBadge(userId, action, metadata)`** utility function:
+- Maps actions to badge slugs per the trigger table
+- Checks counts in `activity_log` / `profiles` fields
+- Inserts into `user_badges` if not already earned
+- Updates `total_points` on profiles
+- Returns newly earned badges for notification
+
+**Badge notification toast** (`BadgeToast`):
+- Slides in from right, 4s visible
+- Glasmorphism card with lime left-border, icon, name, description, points, rarity
+- Stacked with 500ms delay for multiple simultaneous unlocks
+
+## 8. Profile Page
+
+**Header:** Avatar (96px, lime border), display name, @username, city + level pill, total points (Bebas Neue 52px lime)
+**Stats row:** 4 columns (matches, courts, badges earned, streak)
+**Badge grid:** 4 cols desktop / 3 mobile. Unlocked = full color. Locked = grayscale + 🔒 + hover tooltip. Progress bar + "next badge" hint.
+**Activity timeline:** Recent badge unlocks + matches + bookings (private, own profile only)
+**Edit button:** visible only on own profile
+
+## 9. Navbar Update
+
+- Check auth state
+- **Not logged in:** show "Nieuwsbrief" pill (current)
+- **Logged in:** replace with avatar (32px, lime border on hover). Click opens glasmorphism dropdown: profile link, badges link, settings, logout
+- Unseen badge dot: pulsing lime 6px circle on avatar when `user_badges.seen = false` exists
+
+## 10. Files to Create/Modify
+
+**New files (~15):**
+- `src/contexts/AuthContext.tsx`
+- `src/pages/RegisterPage.tsx`
+- `src/pages/LoginPage.tsx`
+- `src/pages/ForgotPasswordPage.tsx`
+- `src/pages/ResetPasswordPage.tsx`
+- `src/pages/ProfilePage.tsx`
+- `src/components/OnboardingModal.tsx`
+- `src/components/BadgeCard.tsx`
+- `src/components/BadgeGrid.tsx`
+- `src/components/BadgeToast.tsx`
+- `src/components/UserDropdown.tsx`
+- `src/lib/badges.ts` (checkAndAwardBadge + badge data constants)
+- `src/lib/validators.ts` (zod schemas)
+
+**Modified files:**
+- `src/App.tsx` -- add AuthProvider wrapper + new routes
+- `src/components/Navbar.tsx` -- auth-aware right side
+- `.lovable/memory/index.md` -- update with auth/badge system info
+
+**Database:** 1 migration (tables + triggers + seed badges + storage bucket + RLS)
+
+## Build Order
+1. Database migration (all tables + seed badges + RLS + storage)
+2. Configure Google OAuth
+3. Auth context provider
+4. Register + Login + Forgot Password pages
+5. Navbar auth state + user dropdown
+6. Badge system logic (`checkAndAwardBadge`)
+7. Onboarding modal (4 steps)
+8. Badge notification toast
+9. Profile page with badge grid
+10. Wire up activity logging across existing components
 
