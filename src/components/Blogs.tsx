@@ -1,26 +1,33 @@
+import { Link } from 'react-router-dom';
+
 const blogs = [
   {
-    cat: 'Rackets',
-    title: 'Beste padelracket voor beginners in 2026: onze eerlijke top 5',
-    desc: 'Net begonnen met padel en overweldigd door het aanbod? Wij testten 18 rackets en kozen de 5 beste voor startende spelers.',
-    time: '8 min',
+    cat: 'Beginners',
+    title: 'Padel beginnen in Nederland: de complete startersgids 2026',
+    desc: 'Nog nooit gespeeld maar wel nieuwsgierig? Dit is de enige gids die je nodig hebt om te beginnen met padel in Nederland.',
+    time: '9 min',
     featured: true,
+    slug: 'padel-beginnen-nederland-complete-gids',
   },
   {
     cat: 'Techniek',
-    title: 'Hoe sla je een perfecte smash? Stap-voor-stap',
-    time: '5 min',
+    title: 'Padelniveau uitgelegd: wat betekent jouw Playtomic score?',
+    time: '7 min',
+    slug: 'padel-niveau-uitgelegd-playtomic-schaal',
   },
   {
-    cat: 'Schoenen',
-    title: 'Binnenbaan vs. buitenbaan schoenen: wat is het verschil?',
-    time: '4 min',
+    cat: 'Rackets',
+    title: 'Beste padelracket per niveau in 2026: van 1.0 tot 5.0',
+    time: '8 min',
+    slug: 'beste-padelracket-per-niveau-2026',
   },
 ];
 
 function BlogCard({ blog, large }: { blog: typeof blogs[0]; large?: boolean }) {
   return (
-    <div className={`group flex flex-col overflow-hidden rounded-xl glass-card transition-all duration-150 hover:-translate-y-[2px] ${large ? 'row-span-2' : ''}`}
+    <Link
+      to={`/blogs/${blog.slug}`}
+      className={`group flex flex-col overflow-hidden rounded-xl glass-card transition-all duration-150 hover:-translate-y-[2px] ${large ? 'row-span-2' : ''}`}
       style={{ ['--hover-border' as string]: 'rgba(200,255,0,0.25)' }}
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(200,255,0,0.25)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
@@ -35,9 +42,9 @@ function BlogCard({ blog, large }: { blog: typeof blogs[0]; large?: boolean }) {
         </div>
         <h3 className={`mt-3 font-body font-bold text-foreground ${large ? 'text-xl' : 'text-[15px]'} line-clamp-2`}>{blog.title}</h3>
         {blog.desc && <p className="mt-2 line-clamp-2 font-body text-[13px] text-muted">{blog.desc}</p>}
-        <a href="#" className="mt-auto pt-4 font-body text-sm font-medium text-lime">Lees artikel &rarr;</a>
+        <span className="mt-auto pt-4 font-body text-sm font-medium text-lime">Lees artikel &rarr;</span>
       </div>
-    </div>
+    </Link>
   );
 }
 
