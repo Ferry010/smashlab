@@ -71,9 +71,9 @@ export default function Hero() {
 
           {/* H1 */}
           <h1 className="stagger-fade font-display leading-[0.88]" style={{ animationDelay: '100ms', fontSize: 'clamp(80px, 12vw, 130px)' }}>
-            <span className="block text-foreground">OWN.</span>
-            <span className="block text-foreground">THE.</span>
-            <span className="block text-lime">COURT.</span>
+            <span className="block text-foreground">THIS.</span>
+            <span className="block text-foreground">IS.</span>
+            <span className="block text-lime">PADEL.</span>
           </h1>
 
           {/* Subtitle */}
