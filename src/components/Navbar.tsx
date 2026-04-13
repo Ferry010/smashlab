@@ -32,6 +32,11 @@ export default function Navbar() {
               <a href={l.href} className="transition-colors hover:text-foreground">{l.label}</a>
             </li>
           ))}
+          {isAdmin && (
+            <li>
+              <Link to="/admin/blogs" className="transition-colors text-lime hover:text-lime-dim">Admin</Link>
+            </li>
+          )}
         </ul>
 
         <div className="hidden lg:block">
