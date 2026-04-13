@@ -14,6 +14,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
   const { user, loading } = useAuth();
   const { isAdmin } = useAdmin();
 
