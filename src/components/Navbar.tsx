@@ -14,8 +14,8 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
   const { user, loading } = useAuth();
+  const { isAdmin } = useAdmin();
 
   return (
     <nav className="sticky top-0 z-50" style={{ background: 'rgba(9,24,48,0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
