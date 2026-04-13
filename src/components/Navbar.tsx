@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/hooks/useAdmin';
 import UserDropdown from './UserDropdown';
 
 const navLinks = [
