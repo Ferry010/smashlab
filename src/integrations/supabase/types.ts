@@ -82,6 +82,89 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          author: string | null
+          author_id: string | null
+          canonical: string | null
+          category: string | null
+          content: string | null
+          created_at: string
+          excerpt: string | null
+          focus_keyword: string | null
+          id: string
+          image_url: string | null
+          level_tags: string[] | null
+          meta_description: string | null
+          og_description: string | null
+          og_title: string | null
+          published_at: string | null
+          reading_time: string | null
+          secondary_keywords: string[] | null
+          seo_title: string | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          author_id?: string | null
+          canonical?: string | null
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          focus_keyword?: string | null
+          id?: string
+          image_url?: string | null
+          level_tags?: string[] | null
+          meta_description?: string | null
+          og_description?: string | null
+          og_title?: string | null
+          published_at?: string | null
+          reading_time?: string | null
+          secondary_keywords?: string[] | null
+          seo_title?: string | null
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          author_id?: string | null
+          canonical?: string | null
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          focus_keyword?: string | null
+          id?: string
+          image_url?: string | null
+          level_tags?: string[] | null
+          meta_description?: string | null
+          og_description?: string | null
+          og_title?: string | null
+          published_at?: string | null
+          reading_time?: string | null
+          secondary_keywords?: string[] | null
+          seo_title?: string | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           club_id: string
@@ -362,15 +445,39 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -497,6 +604,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
