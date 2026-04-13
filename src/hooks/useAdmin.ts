@@ -3,17 +3,23 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function useAdmin() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (authLoading) {
+      // Don't resolve yet — wait for auth to finish
+      return;
+    }
+
     if (!user) {
       setIsAdmin(false);
       setLoading(false);
       return;
     }
 
+    setLoading(true);
     supabase
       .from('user_roles')
       .select('role')
@@ -23,7 +29,7 @@ export function useAdmin() {
         setIsAdmin(!!data && data.length > 0);
         setLoading(false);
       });
-  }, [user]);
+  }, [user, authLoading]);
 
   return { isAdmin, loading };
 }
