@@ -13,6 +13,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.tsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
+import BlogArticlePage from "./pages/BlogArticlePage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/profiel" element={<ProfilePage />} />
             <Route path="/speler/:username" element={<ProfilePage />} />
+            <Route path="/blogs/:slug" element={<BlogArticlePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
