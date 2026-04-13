@@ -14,6 +14,74 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          metadata: Json | null
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_log_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      badges: {
+        Row: {
+          category: string
+          description: string
+          icon: string
+          id: string
+          name: string
+          points: number
+          rarity: string
+          slug: string
+          unlock_trigger: string
+        }
+        Insert: {
+          category: string
+          description: string
+          icon: string
+          id?: string
+          name: string
+          points?: number
+          rarity?: string
+          slug: string
+          unlock_trigger: string
+        }
+        Update: {
+          category?: string
+          description?: string
+          icon?: string
+          id?: string
+          name?: string
+          points?: number
+          rarity?: string
+          slug?: string
+          unlock_trigger?: string
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           club_id: string
@@ -169,6 +237,54 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          city: string | null
+          courts_visited: number
+          created_at: string
+          display_name: string | null
+          id: string
+          level: string
+          login_count: number
+          matches_played: number
+          onboarding_completed: boolean
+          total_points: number
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          city?: string | null
+          courts_visited?: number
+          created_at?: string
+          display_name?: string | null
+          id: string
+          level?: string
+          login_count?: number
+          matches_played?: number
+          onboarding_completed?: boolean
+          total_points?: number
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          avatar_url?: string | null
+          city?: string | null
+          courts_visited?: number
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          level?: string
+          login_count?: number
+          matches_played?: number
+          onboarding_completed?: boolean
+          total_points?: number
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           club_id: string
@@ -203,6 +319,45 @@ export type Database = {
             columns: ["club_id"]
             isOneToOne: false
             referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_badges: {
+        Row: {
+          badge_slug: string
+          earned_at: string
+          id: string
+          seen: boolean
+          user_id: string
+        }
+        Insert: {
+          badge_slug: string
+          earned_at?: string
+          id?: string
+          seen?: boolean
+          user_id: string
+        }
+        Update: {
+          badge_slug?: string
+          earned_at?: string
+          id?: string
+          seen?: boolean
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_slug_fkey"
+            columns: ["badge_slug"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "user_badges_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
