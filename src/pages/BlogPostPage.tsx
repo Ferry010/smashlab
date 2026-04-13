@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import type { BlogArticle } from '@/lib/blogData';
+import blogNiveau from '@/assets/blog-niveau.svg';
+import blogRacket from '@/assets/blog-racket.svg';
+import blogBeginnen from '@/assets/blog-beginnen.svg';
+
+const blogImages: Record<string, string> = {
+  'padel-niveau-uitgelegd-playtomic-schaal': blogNiveau,
+  'beste-padelracket-per-niveau-2026': blogRacket,
+  'padel-beginnen-nederland-complete-gids': blogBeginnen,
+};
 
 interface BlogPostPageProps {
   article: BlogArticle;
@@ -13,7 +22,17 @@ export default function BlogPostPage({ article, children }: BlogPostPageProps) {
       {/* SEO head tags via document.title */}
       <div className="min-h-screen bg-bg-3">
         {/* Header */}
-        <header className="court-lines relative bg-bg-2 pb-12 pt-24 lg:pb-16 lg:pt-32">
+        <header className="relative bg-bg-2 pb-12 pt-24 lg:pb-16 lg:pt-32">
+          {/* Blog header image */}
+          {blogImages[article.slug] && (
+            <div className="mx-auto mb-8 max-w-[820px] px-5">
+              <img
+                src={blogImages[article.slug]}
+                alt={article.title}
+                className="w-full rounded-xl"
+              />
+            </div>
+          )}
           <div className="mx-auto max-w-[820px] px-5">
             <Link to="/#blogs" className="mb-4 inline-flex items-center gap-2 font-body text-sm text-muted hover:text-lime transition-colors">
               <ArrowLeft className="h-4 w-4" /> Terug naar blogs
