@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/hooks/useAdmin';
 import { supabase } from '@/integrations/supabase/client';
 
 export default function UserDropdown() {
@@ -9,6 +10,7 @@ export default function UserDropdown() {
   const [unseenCount, setUnseenCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     if (profile) {
@@ -65,11 +67,14 @@ export default function UserDropdown() {
           {[
             { label: 'Mijn Profiel', path: '/profiel' },
             { label: 'Mijn Badges', path: '/profiel#badges' },
+            ...(isAdmin ? [{ label: 'Admin Panel', path: '/admin/blogs' }] : []),
           ].map(item => (
             <button
               key={item.label}
               onClick={() => { navigate(item.path); setOpen(false); }}
-              className="w-full text-left px-3 py-2 text-sm text-muted font-body rounded-lg transition-colors hover:text-foreground hover:bg-white/5"
+              className={`w-full text-left px-3 py-2 text-sm font-body rounded-lg transition-colors hover:bg-white/5 ${
+                item.label === 'Admin Panel' ? 'text-lime hover:text-lime-dim' : 'text-muted hover:text-foreground'
+              }`}
             >
               {item.label}
               {item.label === 'Mijn Badges' && unseenCount > 0 && (
