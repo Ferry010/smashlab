@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import blogBeginnen from '@/assets/blog-beginnen.svg';
+import blogNiveau from '@/assets/blog-niveau.svg';
+import blogRacket from '@/assets/blog-racket.svg';
 
 const blogs = [
   {
@@ -8,18 +11,21 @@ const blogs = [
     time: '9 min',
     featured: true,
     slug: 'padel-beginnen-nederland-complete-gids',
+    image: blogBeginnen,
   },
   {
     cat: 'Techniek',
     title: 'Padelniveau uitgelegd: wat betekent jouw Playtomic score?',
     time: '7 min',
     slug: 'padel-niveau-uitgelegd-playtomic-schaal',
+    image: blogNiveau,
   },
   {
     cat: 'Rackets',
     title: 'Beste padelracket per niveau in 2026: van 1.0 tot 5.0',
     time: '8 min',
     slug: 'beste-padelracket-per-niveau-2026',
+    image: blogRacket,
   },
 ];
 
@@ -32,8 +38,9 @@ function BlogCard({ blog, large }: { blog: typeof blogs[0]; large?: boolean }) {
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(200,255,0,0.25)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
     >
-      {/* Image placeholder with court-line pattern */}
-      <div className={`court-lines relative ${large ? 'h-56 lg:h-72' : 'h-40'}`} style={{ background: large ? 'linear-gradient(135deg, #1B3A6B, #091830)' : 'linear-gradient(135deg, #0F2548, #091830)' }}>
+      {/* Blog header image */}
+      <div className={`relative overflow-hidden ${large ? 'h-56 lg:h-72' : 'h-40'}`}>
+        <img src={blog.image} alt={blog.title} className="h-full w-full object-cover" />
         <span className="absolute left-4 top-4 rounded-full bg-lime px-2.5 py-0.5 font-body text-[11px] font-bold uppercase text-primary-foreground">{blog.cat}</span>
       </div>
       <div className="flex flex-1 flex-col p-5">
