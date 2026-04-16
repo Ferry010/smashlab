@@ -16,6 +16,8 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 import BlogArticlePage from "./pages/BlogArticlePage.tsx";
 import AdminBlogsPage from "./pages/AdminBlogsPage.tsx";
 import AdminBlogEditorPage from "./pages/AdminBlogEditorPage.tsx";
+import RacketTestPage from "./pages/RacketTestPage.tsx";
+import OutfitPage from "./pages/OutfitPage.tsx";
 
 const queryClient = new QueryClient();
 
