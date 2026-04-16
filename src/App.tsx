@@ -16,6 +16,8 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 import BlogArticlePage from "./pages/BlogArticlePage.tsx";
 import AdminBlogsPage from "./pages/AdminBlogsPage.tsx";
 import AdminBlogEditorPage from "./pages/AdminBlogEditorPage.tsx";
+import RacketTestPage from "./pages/RacketTestPage.tsx";
+import OutfitPage from "./pages/OutfitPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,8 @@ const App = () => (
             <Route path="/admin/blogs" element={<AdminBlogsPage />} />
             <Route path="/admin/blogs/nieuw" element={<AdminBlogEditorPage />} />
             <Route path="/admin/blogs/:id/bewerken" element={<AdminBlogEditorPage />} />
+            <Route path="/racket-test" element={<RacketTestPage />} />
+            <Route path="/outfit" element={<OutfitPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
