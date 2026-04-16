@@ -42,6 +42,8 @@ const App = () => (
             <Route path="/admin/blogs" element={<AdminBlogsPage />} />
             <Route path="/admin/blogs/nieuw" element={<AdminBlogEditorPage />} />
             <Route path="/admin/blogs/:id/bewerken" element={<AdminBlogEditorPage />} />
+            <Route path="/racket-test" element={<RacketTestPage />} />
+            <Route path="/outfit" element={<OutfitPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
