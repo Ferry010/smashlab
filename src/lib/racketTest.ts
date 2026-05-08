@@ -92,6 +92,10 @@ export const questions: Question[] = [
   },
 ];
 
+import racketHeadRadical from "@/assets/racket-head-radical.jpeg";
+import racketKuikmaOpen from "@/assets/racket-kuikma-open.jpeg";
+import racketBabolatViper from "@/assets/racket-babolat-viper.webp";
+
 export interface Racket {
   id: string;
   name: string;
@@ -103,6 +107,7 @@ export interface Racket {
   vorm: string;
   price: string;
   affiliateUrl: string;
+  image: string;
 }
 
 export const rackets: Racket[] = [
@@ -117,6 +122,7 @@ export const rackets: Racket[] = [
     vorm: "Druppel",
     price: "€189",
     affiliateUrl: "https://JOUW-AFFILIATE-LINK-HIER.nl/head-delta-pro",
+    image: racketHeadRadical,
   },
   {
     id: "babolat-viper",
@@ -129,6 +135,7 @@ export const rackets: Racket[] = [
     vorm: "Druppel",
     price: "€229",
     affiliateUrl: "https://JOUW-AFFILIATE-LINK-HIER.nl/babolat-viper",
+    image: racketBabolatViper,
   },
   {
     id: "nox-ml10",
@@ -141,6 +148,7 @@ export const rackets: Racket[] = [
     vorm: "Rond",
     price: "€249",
     affiliateUrl: "https://JOUW-AFFILIATE-LINK-HIER.nl/nox-ml10",
+    image: racketKuikmaOpen,
   },
   {
     id: "bullpadel-vertex",
@@ -153,6 +161,7 @@ export const rackets: Racket[] = [
     vorm: "Diamant",
     price: "€289",
     affiliateUrl: "https://JOUW-AFFILIATE-LINK-HIER.nl/bullpadel-vertex",
+    image: racketBabolatViper,
   },
   {
     id: "adidas-adipower",
@@ -165,6 +174,7 @@ export const rackets: Racket[] = [
     vorm: "Druppel",
     price: "€219",
     affiliateUrl: "https://JOUW-AFFILIATE-LINK-HIER.nl/adidas-adipower",
+    image: racketHeadRadical,
   },
   {
     id: "wilson-carbon",
@@ -177,6 +187,7 @@ export const rackets: Racket[] = [
     vorm: "Rond",
     price: "€79",
     affiliateUrl: "https://JOUW-AFFILIATE-LINK-HIER.nl/wilson-carbon",
+    image: racketKuikmaOpen,
   },
 ];
 

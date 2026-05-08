@@ -7,6 +7,14 @@ interface Props {
 
 const RacketCard = ({ racket }: Props) => (
   <article className="flex flex-col rounded-2xl border border-border-2 bg-bg-2 p-6 transition-colors hover:border-lime/40">
+    <div className="mb-4 flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-bg-3">
+      <img
+        src={racket.image}
+        alt={`${racket.brand} ${racket.name}`}
+        loading="lazy"
+        className="h-full w-full object-contain p-4"
+      />
+    </div>
     <div className="font-body text-xs uppercase tracking-widest text-muted">
       {racket.brand}
     </div>
