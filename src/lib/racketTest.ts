@@ -92,6 +92,10 @@ export const questions: Question[] = [
   },
 ];
 
+import racketHeadRadical from "@/assets/racket-head-radical.jpeg";
+import racketKuikmaOpen from "@/assets/racket-kuikma-open.jpeg";
+import racketBabolatViper from "@/assets/racket-babolat-viper.webp";
+
 export interface Racket {
   id: string;
   name: string;
@@ -103,6 +107,7 @@ export interface Racket {
   vorm: string;
   price: string;
   affiliateUrl: string;
+  image: string;
 }
 
 export const rackets: Racket[] = [
